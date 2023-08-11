@@ -14,10 +14,10 @@ interface IProps {
 }
 
 export default function Contact() {
-	const contact:IContact = {
+	const contact: IContact = {
 		first: "Your",
 		last: "Name",
-		avatar: "https://placekitten.com/g/200/200",
+		avatar: "https://edwardtanguay.vercel.app/share/images/employees/employee_1.jpg",
 		twitter: "your_handle",
 		notes: "Some notes",
 		favorite: true,
