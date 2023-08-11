@@ -1,13 +1,5 @@
 import { Form } from "react-router-dom";
-
-interface IContact {
-	first: string;
-	last: string;
-	avatar: string;
-	twitter: string;
-	notes: string;
-	favorite: boolean;
-}
+import { IContact } from "../interfaces";
 
 interface IProps {
 	contact: IContact;
@@ -15,6 +7,8 @@ interface IProps {
 
 export default function Contact() {
 	const contact: IContact = {
+		id: '0',
+		createdAt: Date.now(),
 		first: "Your",
 		last: "Name",
 		avatar: "https://edwardtanguay.vercel.app/share/images/employees/employee_1.jpg",
