@@ -1,5 +1,5 @@
 import { Form, useLoaderData } from "react-router-dom";
-import { IContact, IContactLoaderData, IFavoriteProps, IParamProps } from "../interfaces";
+import { IContactLoaderData, IFavoriteProps, IParamProps } from "../interfaces";
 import { getContact } from "../contacts";
 
 export async function loader({ params }: IParamProps): Promise<IContactLoaderData> {
