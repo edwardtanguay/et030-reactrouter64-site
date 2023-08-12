@@ -9,3 +9,6 @@ export interface IContact {
 	favorite: boolean;
 }
 
+export interface ILoaderData {
+	contacts: IContact[]
+}
