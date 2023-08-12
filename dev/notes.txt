@@ -1,0 +1,12 @@
+
+
+	// const contact: IContact = {
+	// 	id: '0',
+	// 	createdAt: Date.now(),
+	// 	first: "Your",
+	// 	last: "Name",
+	// 	avatar: "https://edwardtanguay.vercel.app/share/images/employees/employee_1.jpg",
+	// 	twitter: "your_handle",
+	// 	notes: "Some notes",
+	// 	favorite: true,
+	// };

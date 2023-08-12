@@ -1,8 +1,8 @@
 import { Form, Link, Outlet, useLoaderData } from "react-router-dom";
 import { createContact, getContacts } from '../contacts';
-import { ILoaderData } from "../interfaces";
+import { IContactsLoaderData } from "../interfaces";
 
-export async function loader(): Promise<ILoaderData> {
+export async function loader(): Promise<IContactsLoaderData> {
 	const contacts = await getContacts();
 	return { contacts };
 }
@@ -13,7 +13,7 @@ export async function action() {
 }
 
 export default function Root() {
-	const { contacts } = useLoaderData() as ILoaderData;
+	const { contacts } = useLoaderData() as IContactsLoaderData;
 
 	return (
 		<>

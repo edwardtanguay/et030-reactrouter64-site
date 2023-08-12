@@ -9,6 +9,18 @@ export interface IContact {
 	favorite: boolean;
 }
 
-export interface ILoaderData {
-	contacts: IContact[]
+export interface IContactLoaderData {
+	contact: IContact | null;
+}
+
+export interface IContactsLoaderData {
+	contacts: IContact[];
+}
+
+export interface IFavoriteProps {
+	contact: IContact;
+}
+
+export interface IParamProps {
+	params: any;
 }

@@ -1,24 +1,19 @@
-import { Form } from "react-router-dom";
-import { IContact } from "../interfaces";
+import { Form, useLoaderData } from "react-router-dom";
+import { IContactLoaderData, IFavoriteProps, IParamProps } from "../interfaces";
+import { getContact } from "../contacts";
 
-interface IProps {
-	contact: IContact;
+export async function loader({ params }: IParamProps): Promise<IContactLoaderData> {
+	const contact = await getContact(params.contactId);
+	return { contact };
 }
 
 export default function Contact() {
-	const contact: IContact = {
-		id: '0',
-		createdAt: Date.now(),
-		first: "Your",
-		last: "Name",
-		avatar: "https://edwardtanguay.vercel.app/share/images/employees/employee_1.jpg",
-		twitter: "your_handle",
-		notes: "Some notes",
-		favorite: true,
-	};
+	const { contact } = useLoaderData() as IContactLoaderData;
 
 	return (
 		<div id="contact">
+			{contact && (
+				<>
 			<div>
 				<img
 					key={contact.avatar}
@@ -72,12 +67,14 @@ export default function Contact() {
 					</Form>
 				</div>
 			</div>
+				</>
+			)}
 		</div>
 	);
 
 }
 
-function Favorite({ contact }: IProps) {
+function Favorite({ contact }: IFavoriteProps) {
 	// yes, this is a `let` for later
 	let favorite = contact.favorite;
 	return (
