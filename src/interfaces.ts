@@ -24,3 +24,12 @@ export interface IFavoriteProps {
 export interface IParamProps {
 	params: any;
 }
+
+export interface IActionProps {
+	params: any;
+	request: any;
+}
+
+export interface IAction {
+	Response: any;
+}

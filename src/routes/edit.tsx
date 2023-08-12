@@ -1,5 +1,23 @@
-import { Form, useLoaderData } from "react-router-dom";
-import { IContactLoaderData } from "../interfaces";
+import { Form, redirect, useLoaderData } from "react-router-dom";
+import { IActionProps, IContact, IContactLoaderData } from "../interfaces";
+import { updateContact } from "../contacts";
+
+export async function action({ request, params }: IActionProps): Promise<Response> {
+	const formData = await request.formData();
+	const updatedContact: IContact = {
+		id: params.contactId,
+		createdAt: formData.get('createdAt'),
+		first: formData.get('first'),
+		last: formData.get('last'),
+		avatar: formData.get('avatar'),
+		twitter: formData.get('twitter'),
+		notes: formData.get('notes'),
+		favorite: formData.get('favorite')
+	};
+
+	await updateContact(updatedContact.id, updatedContact);
+	return redirect(`/contacts/${params.contactId}`);
+}
 
 export default function EditContact() {
 	const { contact } = useLoaderData() as IContactLoaderData;
