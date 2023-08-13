@@ -73,7 +73,6 @@ export async function updateContact(id: string, updatedContact: IContact) {
 }
 
 export async function updateContactFavorite(id: string, favorite: boolean) {
-	console.log(id, favorite);
 	await fakeNetwork();
 	let contacts: IContact[] | null = await localforage.getItem("contacts");
 	let contact = contacts?.find(contact => contact.id === id);
