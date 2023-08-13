@@ -1,12 +1,15 @@
-export interface IContact {
-	id: string;
-	createdAt: number;
+export interface IDataContact {
 	first: string;
 	last: string;
 	avatar: string;
 	twitter: string;
 	notes: string;
 	favorite: boolean;
+}
+
+export interface IContact extends IDataContact {
+	id: string;
+	createdAt: number;
 }
 
 export interface IContactLoaderData {
