@@ -389,3 +389,6 @@ i {
 	width: 100%;
 }
 
+.favoriteButton {
+	cursor: pointer;
+}

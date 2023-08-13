@@ -72,6 +72,19 @@ export async function updateContact(id: string, updatedContact: IContact) {
 	return contact;
 }
 
+export async function updateContactFavorite(id: string, favorite: boolean) {
+	console.log(id, favorite);
+	await fakeNetwork();
+	let contacts: IContact[] | null = await localforage.getItem("contacts");
+	let contact = contacts?.find(contact => contact.id === id);
+	if (!contact) throw new Error(`No contact found for ${id}`);
+	const _contact = { ...contact };
+	_contact.favorite = favorite;
+	Object.assign(contact, _contact);
+	await set(contacts);
+	return contact;
+}
+
 export async function deleteContact(id: string) {
 	const contacts: IContact[] | null = await localforage.getItem("contacts");
 	const keepContacts = contacts?.filter(m => m.id !== id);

@@ -1,6 +1,11 @@
-import { Form, useLoaderData } from "react-router-dom";
-import { IContactLoaderData, IFavoriteProps, IParamProps } from "../interfaces";
-import { getContact } from "../contacts";
+import { Form, useFetcher, useLoaderData } from "react-router-dom";
+import { IActionProps, IContactLoaderData, IFavoriteProps, IParamProps } from "../interfaces";
+import { getContact, updateContactFavorite } from "../contacts";
+
+export async function action({ request, params } : IActionProps) {
+  let formData = await request.formData();
+  return updateContactFavorite(params.contactId, formData.get("favorite") === "true");
+}
 
 export async function loader({ params }: IParamProps): Promise<IContactLoaderData> {
 	const contact = await getContact(params.contactId);
@@ -75,12 +80,17 @@ export default function Contact() {
 }
 
 function Favorite({ contact }: IFavoriteProps) {
-	// yes, this is a `let` for later
+	const fetcher = useFetcher();
 	let favorite = contact.favorite;
+	if (fetcher.formData) {
+		favorite = fetcher.formData.get("favorite") === 'true';
+	}
+
 	return (
-		<Form method="post">
+		<fetcher.Form method="post">
 			<button
 				name="favorite"
+				className="favoriteButton"
 				value={favorite ? "false" : "true"}
 				aria-label={
 					favorite
@@ -90,6 +100,6 @@ function Favorite({ contact }: IFavoriteProps) {
 			>
 				{favorite ? "★" : "☆"}
 			</button>
-		</Form>
+		</fetcher.Form>
 	);
 }
