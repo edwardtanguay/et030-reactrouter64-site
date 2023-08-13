@@ -3,7 +3,8 @@ import { IContactsLoaderData } from "../interfaces";
 
 export async function loader(): Promise<IContactsLoaderData> {
 	const contacts = await getContacts();
-	return { contacts };
+	const q = '';
+	return { contacts, q };
 }
 
 export default function Index() {
