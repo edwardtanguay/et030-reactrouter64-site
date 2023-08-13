@@ -29,6 +29,8 @@ export default function Root() {
 	const navigate = useNavigate();
 	const submit = useSubmit();
 
+	const searching = navigation.location && new URLSearchParams(navigation.location.search).has('q');
+
 	useEffect(() => {
 		const _elem = document.querySelector<HTMLInputElement>('q');
 		if (_elem) {
@@ -45,6 +47,7 @@ export default function Root() {
 					<Form id="search-form" role="search">
 						<input
 							id="q"
+							className={searching ? 'loading' : ''}
 							aria-label="Search contacts"
 							placeholder="Search"
 							type="search"
@@ -57,7 +60,7 @@ export default function Root() {
 						<div
 							id="search-spinner"
 							aria-hidden
-							hidden={true}
+							hidden={!searching}
 						/>
 						<div
 							className="sr-only"
