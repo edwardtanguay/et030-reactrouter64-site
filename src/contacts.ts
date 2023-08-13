@@ -73,16 +73,14 @@ export async function updateContact(id: string, updatedContact: IContact) {
 }
 
 export async function deleteContact(id: string) {
-	let contacts: IContact[] | null = await localforage.getItem("contacts");
-	let index = contacts?.findIndex(contact => contact.id === id);
-	if (index) {
-		if (index > -1) {
-			contacts?.splice(index, 1);
-			await set(contacts);
-			return true;
-		}
+	const contacts: IContact[] | null = await localforage.getItem("contacts");
+	const keepContacts = contacts?.filter(m => m.id !== id);
+	if (keepContacts) {
+		await set(keepContacts);
+		return true;
+	} else {
+		return false;
 	}
-	return false;
 }
 
 function set(contacts: IContact[] | null) {
