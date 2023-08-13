@@ -11,8 +11,6 @@ export default function Index() {
 	(async () => {
 		const { contacts } = await loader();
 		if (contacts.length === 0) {
-			// const _contact:IDataContact = { first: 'fff', last: 'lll', avatar: 'aaa', twitter: '', notes: '', favorite: false };
-			// const contact = await createSpecificContact(_contact);
 			await fillWithInitialContacts();
 			alert(`initial contacts created, please refresh browser`);
 		}
