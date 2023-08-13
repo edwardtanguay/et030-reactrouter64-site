@@ -18,6 +18,7 @@ export interface IContactLoaderData {
 
 export interface IContactsLoaderData {
 	contacts: IContact[];
+	q: string | null;
 }
 
 export interface IFavoriteProps {
@@ -26,6 +27,10 @@ export interface IFavoriteProps {
 
 export interface IParamProps {
 	params: any;
+}
+
+export interface IRequestProps {
+	request: any;
 }
 
 export interface IActionProps {

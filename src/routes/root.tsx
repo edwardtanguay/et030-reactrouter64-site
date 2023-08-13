@@ -1,10 +1,18 @@
 import { Form, NavLink, Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import { createContact, getContacts } from '../contacts';
-import { IContactsLoaderData } from "../interfaces";
+import { IContactsLoaderData, IRequestProps } from "../interfaces";
+import { useEffect } from "react";
 
-export async function loader(): Promise<IContactsLoaderData> {
-	const contacts = await getContacts();
-	return { contacts };
+export async function loader({ request }: IRequestProps): Promise<IContactsLoaderData> {
+	const url = new URL(request.url);
+	const q = url.searchParams.get('q');
+	if (q) {
+		const contacts = await getContacts(q);
+		return { contacts, q };
+	} else {
+		const contacts = await getContacts();
+		return { contacts, q };
+	}
 }
 
 export async function action() {
@@ -13,22 +21,34 @@ export async function action() {
 }
 
 export default function Root() {
-	const { contacts } = useLoaderData() as IContactsLoaderData;
+	let { contacts, q } = useLoaderData() as IContactsLoaderData;
+	if (q === null) {
+		q = '';
+	}
 	const navigation = useNavigation();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const _elem = document.querySelector<HTMLInputElement>('q');
+		if (_elem) {
+			const elem = _elem;
+			elem.value = q !== null ? q : '';
+		}
+	}, [q]);
 
 	return (
 		<>
 			<div id="sidebar">
 				<h1 onClick={() => navigate('/')}>React Router Contacts</h1>
 				<div>
-					<form id="search-form" role="search">
+					<Form id="search-form" role="search">
 						<input
 							id="q"
 							aria-label="Search contacts"
 							placeholder="Search"
 							type="search"
 							name="q"
+							defaultValue={q}
 						/>
 						<div
 							id="search-spinner"
@@ -39,7 +59,7 @@ export default function Root() {
 							className="sr-only"
 							aria-live="polite"
 						></div>
-					</form>
+					</Form>
 					<Form method="post">
 						<button type="submit">New</button>
 					</Form>
