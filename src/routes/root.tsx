@@ -44,7 +44,7 @@ export default function Root() {
 			<div id="sidebar">
 				<h1 onClick={() => navigate('/')}>React Router Contacts</h1>
 				<div>
-					<Form id="search-form" role="search">
+					<Form id="search-form" role="search" autoComplete="off">
 						<input
 							id="q"
 							className={searching ? 'loading' : ''}
@@ -54,7 +54,8 @@ export default function Root() {
 							name="q"
 							defaultValue={q}
 							onChange={(e) => {
-								submit(e.currentTarget.form);
+								const isFirstSearch = q === null;
+								submit(e.currentTarget.form, {replace: !isFirstSearch});
 							}}
 						/>
 						<div
