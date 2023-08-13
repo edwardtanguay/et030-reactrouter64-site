@@ -1,4 +1,4 @@
-import { Form, NavLink, Outlet, redirect, useLoaderData, useNavigation } from "react-router-dom";
+import { Form, NavLink, Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import { createContact, getContacts } from '../contacts';
 import { IContactsLoaderData } from "../interfaces";
 
@@ -15,11 +15,12 @@ export async function action() {
 export default function Root() {
 	const { contacts } = useLoaderData() as IContactsLoaderData;
 	const navigation = useNavigation();
+	const navigate = useNavigate();
 
 	return (
 		<>
 			<div id="sidebar">
-				<h1>React Router Contacts</h1>
+				<h1 onClick={() => navigate('/')}>React Router Contacts</h1>
 				<div>
 					<form id="search-form" role="search">
 						<input
