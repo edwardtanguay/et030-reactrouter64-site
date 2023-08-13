@@ -28,19 +28,21 @@ export async function createSpecificContact(dataContact: IDataContact) {
 }
 
 export async function fillWithInitialContacts() {
+	const _contacts = [];
 	for (const rawEmployee of rawEmployees) {
-		setTimeout(async () => {
-			const dataContact: IDataContact = {
-				first: rawEmployee.firstName,
-				last: rawEmployee.lastName,
-				avatar: `https://edwardtanguay.vercel.app/share/images/employees/employee_${rawEmployee.employeeID}.jpg`,
-				twitter: 'https://twitter.com/' + Math.random().toString(36).substring(2, 10),
-				notes: rawEmployee.notes,
-				favorite: false
-			}
-			await createSpecificContact(dataContact);
-		}, 200)
+		const _contact: IContact = {
+			id: Math.random().toString(36).substring(2, 9),
+			createdAt: Date.now(),
+			first: rawEmployee.firstName,
+			last: rawEmployee.lastName,
+			avatar: `https://edwardtanguay.vercel.app/share/images/employees/employee_${rawEmployee.employeeID}.jpg`,
+			twitter: 'https://twitter.com/' + Math.random().toString(36).substring(2, 10),
+			notes: rawEmployee.notes,
+			favorite: false
+		}
+		_contacts.unshift(_contact);
 	}
+	await set(_contacts);
 }
 
 export async function createContact() {

@@ -12,7 +12,7 @@ export default function Index() {
 		const { contacts } = await loader();
 		if (contacts.length === 0) {
 			await fillWithInitialContacts();
-			alert(`initial contacts created, please refresh browser`);
+				window.location.href = "/";
 		}
 	})();
 
