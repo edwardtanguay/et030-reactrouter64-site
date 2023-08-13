@@ -9,6 +9,12 @@ export async function action({ request, params } : IActionProps) {
 
 export async function loader({ params }: IParamProps): Promise<IContactLoaderData> {
 	const contact = await getContact(params.contactId);
+	if (!contact) {
+		throw new Response('', {
+			status: 404,
+			statusText: "Not Found"
+		});
+	}
 	return { contact };
 }
 
